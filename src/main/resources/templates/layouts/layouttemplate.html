@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -10,13 +10,13 @@
     <link rel="icon" type="image/*" size="32*32" href="/images/rocket.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
 
 
-    <th:block layout:fragment="extraHead" />
+    <th:block layout:fragment="extraHead"/>
 
 </head>
 
@@ -42,14 +42,24 @@
                 <!--                    </form>-->
                 <!--                </div>-->
 
-                <div sec:authorize="isAnonymous()" class="user-image">
+                <div sec:authorize="!isAuthenticated()" class="user-image">
                     <img src="/images/blank-profile-picture.png" alt="Not logged in">
                 </div>
-                <div sec:authorize="isAnonymous()" class="user-info">
+                <div sec:authorize="!isAuthenticated()" class="user-info">
                     <h2>Konto</h2>
-                    <a href="/scheduleadmin">
-                        <i class="fas fa-sign-out-alt"></i>
+                    <a href="/login">
+                        <i class="fas fa-sign-in-alt"></i>
                         Logga in
+                    </a>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="user-image">
+                    <img th:src="${appUser.profileImage != null ? appUser.profileImage : '/images/blank-profile-picture.png'}" alt="User Profile Image"/>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="user-info">
+                    <h2>Konto</h2>
+                    <a href="/logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logga ut
                     </a>
                 </div>
 
@@ -223,6 +233,11 @@
     </div>
 
 </footer>
+
+<div class="alert-message" th:if="${alertMessage}">
+    <p th:text="${alertMessage}"></p>
+</div>
+
 
 </body>
 
