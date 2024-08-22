@@ -20,7 +20,6 @@ public class SecurityController {
     @Autowired
     private AppUserService userService;
 
-
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("pageTitle", "Logga in");
