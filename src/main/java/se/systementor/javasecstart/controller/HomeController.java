@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import se.systementor.javasecstart.security.AppUserService;
+import se.systementor.javasecstart.services.AppUserService;
 import se.systementor.javasecstart.security.IAuthenticationFacade;
 
 @Controller

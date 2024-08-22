@@ -1,4 +1,4 @@
-package se.systementor.javasecstart.security;
+package se.systementor.javasecstart.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import se.systementor.javasecstart.model.AppUser;
+import se.systementor.javasecstart.services.AppUserService;
+import se.systementor.javasecstart.security.IAuthenticationFacade;
 
 @Controller
 public class SecurityController {

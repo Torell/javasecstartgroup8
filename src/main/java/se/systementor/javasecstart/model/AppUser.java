@@ -1,4 +1,4 @@
-package se.systementor.javasecstart.security;
+package se.systementor.javasecstart.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nonnull;

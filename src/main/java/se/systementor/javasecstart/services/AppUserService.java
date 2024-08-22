@@ -1,4 +1,4 @@
-package se.systementor.javasecstart.security;
+package se.systementor.javasecstart.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import se.systementor.javasecstart.model.AppUser;
+import se.systementor.javasecstart.model.AppUserRepository;
 
 import java.util.NoSuchElementException;
 import java.util.UUID;
