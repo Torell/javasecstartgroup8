@@ -22,20 +22,17 @@ public class WebSecurityConfig {
     @Autowired
     private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
-    @Autowired
-    private AppUserDetailService appUserDetailService;
-
     @Bean
     public UserDetailsService userDetailsService() {
-        return appUserDetailService;
+        return new AppUserDetailService();
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(appUserDetailService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     @Bean

@@ -19,7 +19,7 @@
                 <form th:action="@{/login/register}" method="post" th:object="${user}">
                     <h2 class="text-center mb-4" th:text="${header}"></h2>
 
-                    <div class="alert alert-danger" id="errorMessage" style="display: none" >
+                    <div class="alert alert-danger" id="errorMessage" role="alert" style="display: none" >
                         <p th:text="${errorMessage}"></p>
                     </div>
 

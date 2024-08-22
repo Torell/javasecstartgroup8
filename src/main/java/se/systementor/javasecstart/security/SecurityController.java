@@ -2,18 +2,24 @@ package se.systementor.javasecstart.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class SecurityController {
 
+    private static final String WAVING_EMOJI = "\uD83D\uDC4B";
+
+    @Autowired
+    private IAuthenticationFacade authenticationFacade;
+
     @Autowired
     private AppUserService userService;
-    private static final String WAVING_EMOJI = "\uD83D\uDC4B";
+
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -31,11 +37,9 @@ public class SecurityController {
 
     @GetMapping("/login/success")
     public String loginSuccessful(RedirectAttributes redirectAttributes) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof AppUser appUser) {
-            redirectAttributes.addFlashAttribute("appUser", appUser);
-            redirectAttributes.addFlashAttribute("alertMessage", "Välkommen '%s' %s".formatted(appUser.getUsername(), WAVING_EMOJI));
-        }
+        Authentication authentication = authenticationFacade.getAuthentication();
+        String username = userService.findUserByUsername(authentication.getName()).getUsername();
+        redirectAttributes.addFlashAttribute("alertMessage", "Välkommen '%s' %s".formatted(username, WAVING_EMOJI));
 
         return "redirect:/";
     }
@@ -47,9 +51,8 @@ public class SecurityController {
         return "redirect:/";
     }
 
-
     @GetMapping("/login/new-user")
-    public String signUp(Model model) {
+    public String signUp(Model model, @ModelAttribute("errorMessage") String errorMessage) {
         model.addAttribute("pageTitle", "Skapa Konto");
         model.addAttribute("header", "Registrera konto");
         model.addAttribute("errorMessage", "Lösenorden matchar inte. Försök igen.");
@@ -65,6 +68,7 @@ public class SecurityController {
         return "security/new-user.html";
     }
 
+    // TODO: Add validation for existing usernames
     @PostMapping("/login/register")
     public String register(RedirectAttributes redirectAttributes, @ModelAttribute AppUser user) {
 
