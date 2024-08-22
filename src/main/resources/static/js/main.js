@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 setTimeout(function () {
     $(".alert-message").addClass("show");
-}, 500);
+}, 100);
 
 $(".alert-message").on("click", function () {
     $(".alert-message").fadeOut();

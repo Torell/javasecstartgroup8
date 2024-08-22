@@ -1069,13 +1069,13 @@ textarea,select,input[type=text],input[type=date],input[type=number]{
 .alert-message{
     position: fixed;
     top: -100px;
-    right: 30px;
+    right: 35px;
     background-color: rgb(9, 72, 179);
     color: white;
     padding: 20px 40px;
     border-radius: 5px;
     opacity: 0;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
     z-index: 1;
 }
 
