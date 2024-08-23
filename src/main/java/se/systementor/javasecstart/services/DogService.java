@@ -18,10 +18,22 @@ public class DogService {
         return dogRepository.findAllBySoldToIsNull();
     }
 
-    public Page<Dog> searchDogs(String name, String breed, String size, String age, int price, Pageable pageable){
+  /*  public Page<Dog> searchDogs(String search, String name, String breed, String size, String age, int price, Pageable pageable){
         return dogRepository.findByNameContainingIgnoreCaseOrBreedContainingIgnoreCaseOrSizeContainingIgnoreCaseOrAgeContainingIgnoreCaseOrPrice(
                 name, breed, size, age, price, pageable);
+    }*/
+
+    public Page<Dog>findAllDogsWithSearch(String search, Pageable pageable){
+        return dogRepository.findByNameContainingIgnoreCaseOrBreedContainingIgnoreCaseOrSizeContainingIgnoreCaseOrAgeContainingIgnoreCaseOrPrice(
+                search, search, search, search, Integer.parseInt(search), pageable);
     }
+
+
+    public Page<Dog> getAllDogPages(Pageable pageable) {
+        return dogRepository.findAll(pageable);
+    }
+
+
 
 
 

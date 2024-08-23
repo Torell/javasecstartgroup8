@@ -50,35 +50,56 @@
         Ny hund
     </a>
     <br/><br/>
-    <form method="GET">
+    <form th:action="@{/admin/dogs}" method="get">
         Search:
-        <input type="text" name="q" value="" />
+        <input type="text" name="search" th:value="${search}" />
+
+
     </form>
     <table class="tabulator-table">
         <thead>
         <tr class="tabulator-row">
             <th class="tabulator-cell">
                 Name
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='name', sortDirection=${sort == 'name' and sortDirection == 'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='name', sortDirection=${sort == 'name' and sortDirection == 'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
 
             <th >
                 Breed
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='breed', sortDirection=${sort == 'breed' and sortDirection == 'asc'}, search=${search})}">
+                <i class="fa-solid fa-arrow-up-a-z"></i>
+                </a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='breed', sortDirection=${sort == 'breed' and sortDirection == 'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
             <th>Age
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='age', sortDirection=${sort == 'age' and sortDirection == 'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                </a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='age', sortDirection=${sort == 'age' and sortDirection == 'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
             <th>Size
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='size', sortDirection=${sort == 'size' and sortDirection == 'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                </a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='size', sortDirection=${sort == 'size' and sortDirection == 'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
             <th>Price
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='price', sortDirection=${sort == 'price' and sortDirection == 'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                </a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='price', sortDirection=${sort == 'price' and sortDirection == 'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
             <th></th>
         </tr>
@@ -86,11 +107,11 @@
         </thead>
         <tbody id="tablerows">
         <tr th:each="dog: ${dogs}">
-            <th th:text="${dog.getName()}"></th>
-            <td th:text="${dog.getBreed()}"></td>
-            <td th:text="${dog.getAge()}"></td>
-            <td th:text="${dog.getSize()}"></td>
-            <td th:text="${dog.getPrice()}"></td>
+            <th th:text="${dog.name}"></th>
+            <td th:text="${dog.breed}"></td>
+            <td th:text="${dog.age}"></td>
+            <td th:text="${dog.size}"></td>
+            <td th:text="${dog.price}"></td>
             <td>
                 <a class="listbutton">Edit</a>
             </td>
