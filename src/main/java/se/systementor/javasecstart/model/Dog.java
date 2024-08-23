@@ -3,9 +3,9 @@ package se.systementor.javasecstart.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
 @Entity
 @Table(name="Dog")
+@Data
 public class Dog {
 
     @Id
@@ -36,4 +36,5 @@ public class Dog {
 
     @Column(name="Image")
     private String image;
+
 }

@@ -4,29 +4,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layouts/layouttemplate"
       data-theme="light">
-
-
 <th:block layout:fragment="extraHead">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@1.5.0/event-calendar.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@1.5.0/event-calendar.min.js"></script>
     <script src="/js/modal.js"></script>
-
 </th:block>
-
-<!--    <header>-->
-<!--        <div class="content">-->
-<!--            <div class="btn-left">-->
-<!--                <button class="btn btn-blue">-->
-<!--                    <span class="fas fa-plus mr-2"></span>-->
-<!--                    New Task-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="btn-right">-->
-<!--                <button class="btn btn-sec left-radius">Share</button>-->
-<!--                <button class="btn btn-sec right-radius">Export</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </header>    -->
 <div layout:fragment="mainContent">
 
     <div class="row-box">
@@ -37,11 +19,8 @@
                         <h2>Alla hundar</h2>
                         <!--                        <a href="#">see all</a>-->
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     </div>
 
@@ -50,60 +29,107 @@
         Ny hund
     </a>
     <br/><br/>
-    <form method="GET">
+    <form th:action="@{/admin/dogs}" method="get">
         Search:
-        <input type="text" name="q" value="" />
+        <input type="text" name="search" th:value="${search}"/>
+
     </form>
     <table class="tabulator-table">
         <thead>
         <tr class="tabulator-row">
             <th class="tabulator-cell">
                 Name
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='name', sortDirection=${'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='name', sortDirection=${'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
 
-            <th >
+            <th>
                 Breed
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='breed', sortDirection=${'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                </a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='breed', sortDirection=${'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
             <th>Age
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='age', sortDirection=${'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                </a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='age', sortDirection=${'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
             <th>Size
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='size', sortDirection=${'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                </a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='size', sortDirection=${'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
             <th>Price
-                <a href="?"><i class="fa-solid fa-arrow-up-a-z"></i></a>
-                <a href="?"><i class="fa-solid fa-arrow-down-z-a"></i></a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='price', sortDirection=${'asc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-up-a-z"></i>
+                </a>
+                <a th:href="@{/admin/dogs(page=${page.number}, sort='price', sortDirection=${'desc'}, search=${search})}">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </a>
             </th>
             <th></th>
         </tr>
-
         </thead>
         <tbody id="tablerows">
-        <tr th:each="dog: ${dogs}">
-            <th th:text="${dog.getName()}"></th>
-            <td th:text="${dog.getBreed()}"></td>
-            <td th:text="${dog.getAge()}"></td>
-            <td th:text="${dog.getSize()}"></td>
-            <td th:text="${dog.getPrice()}"></td>
+        <tr th:each="dog: ${page}">
+            <th th:text="${dog.name}"></th>
+            <td th:text="${dog.breed}"></td>
+            <td th:text="${dog.age}"></td>
+            <td th:text="${dog.size}"></td>
+            <td th:text="${dog.price}"></td>
             <td>
                 <a class="listbutton">Edit</a>
             </td>
         </tr>
-
         </tbody>
     </table>
 
+    <section class="container">
+        <div class="row pt-5">
+            <ul class="pagination justify-content-center clearfix">
+                <li th:class="'page-item border border-primary rounded-start ' + (${page.hasPrevious()} ? '' : 'disabled')">
+                    <a class="page-link" th:text="Föregående"
+                       th:href="@{/admin/dogs(page=${page.number - 1}, sort=${sort}, sortDirection=${sortDirection}, search=${search})}">
+                    </a>
+                </li>
+                <li class="page-item border border-primary">
+                    <span class="page-link" th:text="${page.getNumber() + 1}"></span>
+                </li>
+                <li class="page-item disabled border border-primary" th:if="${page.totalPages > 1}">
+                    <span class="page-link" th:text="${page.totalPages}"></span>
+                </li>
+                <li th:class="'page-item border border-primary rounded-end ' + (${page.hasNext()} ? '' : 'disabled')">
+                    <a class="page-link" th:text="Nästa"
+                       th:href="@{/admin/dogs(page=${page.number + 1}, sort=${sort}, sortDirection=${sortDirection}, search=${search})}">
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+    <!--    <div class="pagination clearfix">-->
+    <!--        <a th:if="${page.hasPrevious()}"-->
+    <!--           th:href="@{/admin/dogs(page=${page.number - 1}, sort=${sort}, sortDirection=${sortDirection}, search=${search})}"-->
+    <!--           class="btn btn-primary">Previous</a>-->
+    <!--        <div class="page-number" th:text="'Page ' + (${page.number + 1}) + ' of ' + ${page.totalPages}"></div>-->
+    <!--        <a th:if="${page.hasNext()}"-->
+    <!--           th:href="@{/admin/dogs(page=${page.number + 1}, sort=${sort}, sortDirection=${sortDirection}, search=${search})}"-->
+    <!--           class="btn btn-primary">Next</a>-->
+    <!--    </div>-->
 </div>
-
-
-
-
 
 
 </html>

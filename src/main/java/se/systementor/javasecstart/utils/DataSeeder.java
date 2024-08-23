@@ -30,7 +30,7 @@ public class DataSeeder {
         dog.setName(faker.dog().name());
         dog.setBreed(faker.dog().breed());
         dog.setGender(faker.dog().gender());
-        dog.setPrice(faker.random().nextInt(4,20) * 1000);
+        dog.setPrice((faker.random().nextInt(4, 20) * 1000));
         dog.setSize(faker.dog().size());
         dog.setImage("/images/dogs/" + randomSelector.getRandomImage());
         return dog;
