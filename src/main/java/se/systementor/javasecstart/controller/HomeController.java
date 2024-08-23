@@ -6,12 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @GetMapping(path="/")
-    String empty(Model model)
-    {
-        model.addAttribute("activeFunction", "home");
-//        setupVersion(model);
 
-//        model.addAttribute("dogs", dogRepository.findAll());
+    @GetMapping(path="/")
+    String empty(Model model) {
+        model.addAttribute("activeFunction", "home");
         return "home";
     }}

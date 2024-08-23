@@ -1,10 +1,13 @@
 package se.systementor.javasecstart.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name="Dog")
+@Data
 public class Dog {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="Id")
@@ -22,7 +25,6 @@ public class Dog {
     @Column(name="SoldTo")
     private String soldTo;
 
-
     @Column(name="Price")
     private int price;
 
@@ -32,80 +34,7 @@ public class Dog {
     @Column(name="Size")
     private String size;
 
-
     @Column(name="Image")
     private String image;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String hender) {
-        this.gender = hender;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public String getSoldTo() {
-        return soldTo;
-    }
-
-    public void setSoldTo(String soldTo) {
-        this.soldTo = soldTo;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }
