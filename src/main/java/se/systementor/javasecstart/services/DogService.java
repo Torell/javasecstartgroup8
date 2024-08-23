@@ -1,5 +1,7 @@
 package se.systementor.javasecstart.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.systementor.javasecstart.model.Dog;
@@ -16,7 +18,12 @@ public class DogService {
         return dogRepository.findAllBySoldToIsNull();
     }
 
-    //implementera sök och sort metod
+    public Page<Dog> searchDogs(String name, String breed, String size, String age, int price, Pageable pageable){
+        return dogRepository.findByNameContainingIgnoreCaseOrBreedContainingIgnoreCaseOrSizeContainingIgnoreCaseOrAgeContainingIgnoreCaseOrPrice(
+                name, breed, size, age, price, pageable);
+    }
+
+
 
 
 

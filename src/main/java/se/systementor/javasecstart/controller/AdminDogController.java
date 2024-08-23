@@ -9,8 +9,10 @@ import se.systementor.javasecstart.services.DogService;
 
 @Controller
 public class AdminDogController {
+
     @Autowired
     private DogService dogService;
+
     @GetMapping(path="/admin/dogs")
     String list(Model model){
         model.addAttribute("activeFunction", "home");
