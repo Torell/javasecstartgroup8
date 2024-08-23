@@ -11,4 +11,5 @@ public class HomeController {
     String empty(Model model) {
         model.addAttribute("activeFunction", "home");
         return "home";
-    }}
+    }
+}

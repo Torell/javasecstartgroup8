@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 
 @Component
 public class SeedDataRunner implements CommandLineRunner {
+
     @Autowired
     DataSeeder dataSeeder;
 
@@ -20,4 +21,4 @@ public class SeedDataRunner implements CommandLineRunner {
     private void setupDogs() throws URISyntaxException {
         dataSeeder.Seed();
     }
-}§
+}
