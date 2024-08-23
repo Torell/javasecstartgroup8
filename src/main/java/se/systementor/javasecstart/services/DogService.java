@@ -15,4 +15,9 @@ public class DogService {
     public List<Dog> getPublicDogs(){
         return dogRepository.findAllBySoldToIsNull();
     }
+
+    //implementera sök och sort metod
+
+
+
 }
