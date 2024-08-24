@@ -11,33 +11,27 @@
     <title th:text="${pageTitle}"></title>
 </head>
 <body>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-10 col-md-8 col-lg-6">
             <div class="security-container">
                 <form th:action="@{/login/register}" method="post" th:object="${user}">
                     <h2 class="text-center mb-4" th:text="${header}"></h2>
-
                     <div class="alert alert-danger" id="errorMessage" role="alert" style="display: none" >
                         <p th:text="${errorMessage}"></p>
                     </div>
-
                     <div class="form-group">
                         <label for="username" th:text="${usernameLabelText}"></label>
                         <input type="email" class="form-control" id="username" name="username" th:placeholder="${usernamePlaceholder}" th:field="*{username}" required>
                     </div>
-
                     <div class="form-group">
                         <label for="password" th:text="${passwordLabelText}"></label>
                         <input type="password" class="form-control" id="password" name="password" th:placeholder="${passwordPlaceholder}" th:field="*{password}" required>
                     </div>
-
                     <div class="form-group">
                         <label for="passwordConfirmation" th:text="${passwordConfirmLabelText}"></label>
                         <input type="password" class="form-control" id="passwordConfirmation" name="passwordConfirmation" th:placeholder="${passwordConfirmPlaceholder}" required>
                     </div>
-
                     <button type="submit" id="submit" class="btn btn-primary btn-block" th:text="${buttonText}"></button>
                 </form>
             </div>

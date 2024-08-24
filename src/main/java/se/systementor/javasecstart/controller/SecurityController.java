@@ -2,11 +2,13 @@ package se.systementor.javasecstart.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import se.systementor.javasecstart.model.AppUser;
 import se.systementor.javasecstart.services.AppUserService;
@@ -39,8 +41,9 @@ public class SecurityController {
 
     @GetMapping("/login/success")
     public String loginSuccessful(RedirectAttributes redirectAttributes) {
-        Authentication authentication = authenticationFacade.getAuthentication();
-        String username = userService.findUserByUsername(authentication.getName()).getUsername();
+        String username = authenticationFacade.loggedInUserProvider()
+                .orElseThrow(() -> new UsernameNotFoundException("No Authorized user was found."))
+                .getUsername();
         redirectAttributes.addFlashAttribute("alertMessage", "Välkommen '%s' %s".formatted(username, WAVING_EMOJI));
 
         return "redirect:/";
@@ -73,7 +76,6 @@ public class SecurityController {
     // TODO: Add validation for existing usernames
     @PostMapping("/login/register")
     public String register(RedirectAttributes redirectAttributes, @ModelAttribute AppUser user) {
-
         if (userService.addUser(user)) {
             redirectAttributes.addFlashAttribute("alertMessage", "Kontot '%s' har skapats!".formatted(user.getUsername()));
             return "redirect:/";

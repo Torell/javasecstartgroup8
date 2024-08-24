@@ -4,14 +4,3 @@ $(document).ready(function () {
     })
 })
 
-setTimeout(function () {
-    $(".alert-message").addClass("show");
-}, 100);
-
-$(".alert-message").on("click", function () {
-    $(".alert-message").fadeOut();
-});
-
-setTimeout(function () {
-    $(".alert-message").removeClass("show");
-}, 6000);

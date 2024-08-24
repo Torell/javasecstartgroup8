@@ -46,7 +46,7 @@ public class WebSecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)      // Disable CSRF Protection (Cross-Site Request Forgery)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/", "/logout/**", "/login/**", "/admin/**", "/dogs/**").permitAll()
+                        .requestMatchers("/", "/logout/**", "/login/**", "/dogs/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/templates/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form

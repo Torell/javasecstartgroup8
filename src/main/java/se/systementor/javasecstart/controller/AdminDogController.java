@@ -24,19 +24,15 @@ public class AdminDogController {
     @Autowired
     private AppUserService userService;
 
-
     @Autowired
     private DogService dogService;
 
-    @GetMapping(path="/admin/dogs")
-    String list(Model model){
-
-//        setupVersion(model);
-    public String getAllDogsWithSearchAndSort(Model model,
-                                              @RequestParam(defaultValue = "0") int page,
-                                              @RequestParam(defaultValue = "name") String sort,
-                                              @RequestParam(defaultValue = "asc") String sortDirection,
-                                              @RequestParam(required = false, defaultValue = "") String search) {
+    @GetMapping(path = "/admin/dogs")
+    public String dogAdminPage(Model model,
+                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "name") String sort,
+                               @RequestParam(defaultValue = "asc") String sortDirection,
+                               @RequestParam(required = false, defaultValue = "") String search) {
         final int PAGE_SIZE = 10;
         Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.fromString(sortDirection), sort));
         Page<Dog> dogPage = dogService.findAllDogsWithSearch(search, pageable);
@@ -44,11 +40,10 @@ public class AdminDogController {
         model.addAttribute("page", dogPage);
         model.addAttribute("sort", sort);
         model.addAttribute("sortDirection", sortDirection);
-        model.addAttribute("search",search);
+        model.addAttribute("search", search);
 
-        Authentication authentication = authenticationFacade.getAuthentication();
-        String profileImage = userService.findUserByUsername(authentication.getName()).getProfileImage();
-        model.addAttribute("profileImage", profileImage);
+        authenticationFacade.loggedInUserProvider()
+                .ifPresent(appUser -> model.addAttribute("profileImage", appUser.getProfileImage()));
         model.addAttribute("activeFunction", "home");
         model.addAttribute("dogs", dogService.getPublicDogs());
 

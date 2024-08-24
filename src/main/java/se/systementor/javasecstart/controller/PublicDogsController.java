@@ -22,15 +22,10 @@ public class PublicDogsController {
     private DogService dogService;
 
     @GetMapping(path="/dogs")
-    String list(Model model){
-
-//        setupVersion(model);
-
-        Authentication authentication = authenticationFacade.getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
-            String profileImage = userService.findUserByUsername(authentication.getName()).getProfileImage();
-            model.addAttribute("profileImage", profileImage);
-        }
+    String list(Model model) {
+        authenticationFacade.loggedInUserProvider()
+                .ifPresent(appUser -> model.addAttribute("profileImage", appUser.getProfileImage()));
+        model.addAttribute("activeFunction", "home");
         model.addAttribute("activeFunction", "publicdogs");
         model.addAttribute("dogs", dogService.getPublicDogs());
 

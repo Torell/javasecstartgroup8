@@ -10,7 +10,6 @@
     <script src="/js/modal.js"></script>
 </th:block>
 <div layout:fragment="mainContent">
-
     <div class="row-box">
         <div class="col-boxes-1">
             <div class="col-table">
@@ -23,7 +22,6 @@
             </div>
         </div>
     </div>
-
     <a class="listbutton" href="#">
         <span class="fas fa-plus mr-2"></span>
         Ny hund
@@ -32,7 +30,6 @@
     <form th:action="@{/admin/dogs}" method="get">
         Search:
         <input type="text" name="search" th:value="${search}"/>
-
     </form>
     <table class="tabulator-table">
         <thead>
@@ -45,7 +42,6 @@
                     <i class="fa-solid fa-arrow-down-z-a"></i>
                 </a>
             </th>
-
             <th>
                 Breed
                 <a th:href="@{/admin/dogs(page=${page.number}, sort='breed', sortDirection=${'asc'}, search=${search})}">
@@ -55,7 +51,8 @@
                     <i class="fa-solid fa-arrow-down-z-a"></i>
                 </a>
             </th>
-            <th>Age
+            <th>
+                Age
                 <a th:href="@{/admin/dogs(page=${page.number}, sort='age', sortDirection=${'asc'}, search=${search})}">
                     <i class="fa-solid fa-arrow-up-a-z"></i>
                 </a>
@@ -63,7 +60,8 @@
                     <i class="fa-solid fa-arrow-down-z-a"></i>
                 </a>
             </th>
-            <th>Size
+            <th>
+                Size
                 <a th:href="@{/admin/dogs(page=${page.number}, sort='size', sortDirection=${'asc'}, search=${search})}">
                     <i class="fa-solid fa-arrow-up-a-z"></i>
                 </a>
@@ -71,7 +69,8 @@
                     <i class="fa-solid fa-arrow-down-z-a"></i>
                 </a>
             </th>
-            <th>Price
+            <th>
+                Price
                 <a th:href="@{/admin/dogs(page=${page.number}, sort='price', sortDirection=${'asc'}, search=${search})}">
                     <i class="fa-solid fa-arrow-up-a-z"></i>
                 </a>
@@ -79,7 +78,6 @@
                     <i class="fa-solid fa-arrow-down-z-a"></i>
                 </a>
             </th>
-            <th></th>
         </tr>
         </thead>
         <tbody id="tablerows">
@@ -95,7 +93,6 @@
         </tr>
         </tbody>
     </table>
-
     <section class="container">
         <div class="row pt-5">
             <ul class="pagination justify-content-center clearfix">
@@ -117,19 +114,6 @@
                 </li>
             </ul>
         </div>
-
     </section>
-
-    <!--    <div class="pagination clearfix">-->
-    <!--        <a th:if="${page.hasPrevious()}"-->
-    <!--           th:href="@{/admin/dogs(page=${page.number - 1}, sort=${sort}, sortDirection=${sortDirection}, search=${search})}"-->
-    <!--           class="btn btn-primary">Previous</a>-->
-    <!--        <div class="page-number" th:text="'Page ' + (${page.number + 1}) + ' of ' + ${page.totalPages}"></div>-->
-    <!--        <a th:if="${page.hasNext()}"-->
-    <!--           th:href="@{/admin/dogs(page=${page.number + 1}, sort=${sort}, sortDirection=${sortDirection}, search=${search})}"-->
-    <!--           class="btn btn-primary">Next</a>-->
-    <!--    </div>-->
 </div>
-
-
 </html>

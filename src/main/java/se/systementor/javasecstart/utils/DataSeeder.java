@@ -16,10 +16,10 @@ public class DataSeeder {
     private final RandomSelector randomSelector = new RandomSelector("static/images/dogs");
 
     public void Seed() {
-        if(dogRepository.count() > 0 ){
+        if (dogRepository.count() > 0) {
             return;
         }
-        for(int i =0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             dogRepository.save(RandomDog());
         }
     }

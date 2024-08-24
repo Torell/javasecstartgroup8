@@ -4,13 +4,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layouts/layouttemplate"
       data-theme="light">
-
-
 <th:block layout:fragment="extraHead">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@1.5.0/event-calendar.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@1.5.0/event-calendar.min.js"></script>
     <script src="/js/modal.js"></script>
-
 </th:block>
 
 <!--    <header>-->
@@ -28,7 +25,6 @@
 <!--        </div>-->
 <!--    </header>    -->
 <div layout:fragment="mainContent">
-
     <div class="row-box">
         <div class="col-boxes-1">
             <div class="col-table">
@@ -37,41 +33,29 @@
                         <h2>Hundar att adoptera</h2>
                         <!--                        <a href="#">see all</a>-->
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     </div>
-
     <form method="GET">
         Search:
-        <input type="text" name="q" value="" />
+        <input type="text" name="q" value=""/>
         <!-- <input type="hidden" name="sortCol"  value="<?php echo $sortCol; ?>" />       -->
     </form>
     <div class="cards dogcards">
         <div class="card dogcard" th:each="dog: ${dogs}">
             <div class="card-top-info">
-          <h3 th:text="${dog.getName()}"></h3>
+                <h3 th:text="${dog.getName()}"></h3>
                 <img th:src="${dog.getImage()}" class="animal-img">
             </div>
             <p>
-
-                <ul style="text-align: center">
-                    <li th:text="${dog.getBreed()}"></li>
-            <li th:text="${dog.getAge()}"></li>
-            <li th:text="${dog.getPrice()}"> kr</li>
-                </ul>
+            <ul style="text-align: center">
+                <li th:text="${dog.getBreed()}"></li>
+                <li th:text="${dog.getAge()}"></li>
+                <li th:text="${dog.getPrice()}"> kr</li>
+            </ul>
             </p>
         </div>
     </div>
-
 </div>
-
-
-
-
-
-
 </html>

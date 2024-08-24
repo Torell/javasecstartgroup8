@@ -20,7 +20,6 @@ public class RandomSelector {
     private String dirPath;
 
     public String getRandomImage() {
-        //Get all files in dir
         URL resource = getClass().getClassLoader().getResource(this.dirPath);
         Path dir;
         try {
@@ -29,7 +28,7 @@ public class RandomSelector {
             throw new RuntimeException(e);
         }
 
-        Set<String> allFiles =  Stream.of(new File(String.valueOf(dir)).listFiles())
+        Set<String> allFiles = Stream.of(new File(String.valueOf(dir)).listFiles())
                 .filter(file -> !file.isDirectory())
                 .map(File::getName)
                 .collect(Collectors.toSet());
