@@ -8,10 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import se.systementor.javasecstart.services.AppUserService;
 import se.systementor.javasecstart.security.IAuthenticationFacade;
-import org.springframework.web.bind.annotation.RequestParam;
 import se.systementor.javasecstart.model.Dog;
 import se.systementor.javasecstart.services.DogService;
 
@@ -49,5 +48,30 @@ public class AdminDogController {
 
         return "admin/dogs/list";
     }
+
+
+    @GetMapping(path = "/admin/dogs/edit/{id}")
+    public String showEditForm(@PathVariable("id") int id, Model model) {
+//        Debug purpose
+        System.out.println("showEditForm GetMapping");
+        System.out.println("dog id = " + id);
+
+        Dog dog = dogService.getDog(id);
+
+        //if dog not empty
+        model.addAttribute("dog", dog);
+        model.addAttribute("title","Editera hunduppgifter");
+
+        return "editForm";
+//        return "admin/dogs/edit/{id}/editForm";
+    }
+
+
+    @PostMapping(path = "/admin/update")
+    public String updateDog() {
+        //update dog from editForm
+        return "redirect:/admin/dogs";
+    }
+
 
 }

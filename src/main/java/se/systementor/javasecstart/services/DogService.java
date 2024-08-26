@@ -8,6 +8,7 @@ import se.systementor.javasecstart.model.Dog;
 import se.systementor.javasecstart.model.DogRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DogService {
@@ -38,5 +39,9 @@ public class DogService {
         }
 
         return Integer.parseInt(builder.toString());
+    }
+
+    public Dog getDog(int id){
+        return dogRepository.findById(id).orElse(new Dog());
     }
 }
