@@ -54,8 +54,7 @@ public class AdminDogController {
     @GetMapping(path = "/admin/dogs/edit/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
 //        Debug purpose
-        System.out.println("showEditForm GetMapping");
-        System.out.println("dog id = " + id);
+        System.out.println("INSIDE SHOW EDIT FORM");
 
         Dog dog = dogService.getDog(id);
 
@@ -70,6 +69,7 @@ public class AdminDogController {
     @PostMapping(path = "/admin/update")
     public String updateDog() {
         //update dog from editForm
+        System.out.println("INSIDE UPDATE DOG");
         return "redirect:/admin/dogs";
     }
 
