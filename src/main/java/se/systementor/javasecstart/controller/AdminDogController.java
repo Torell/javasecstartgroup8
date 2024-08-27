@@ -49,6 +49,7 @@ public class AdminDogController {
         return "admin/dogs/list";
     }
 
+//    /admin/dogs/edit/(id=${dog.id})
 
     @GetMapping(path = "/admin/dogs/edit/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
@@ -62,8 +63,7 @@ public class AdminDogController {
         model.addAttribute("dog", dog);
         model.addAttribute("title","Editera hunduppgifter");
 
-        return "editForm";
-//        return "admin/dogs/edit/{id}/editForm";
+        return "admin/dogs/editForm";
     }
 
 

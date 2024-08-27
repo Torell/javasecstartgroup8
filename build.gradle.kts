@@ -4,6 +4,12 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:3.3.2")
+    }
+}
+
 group = "se.systementor"
 version = "0.0.1-SNAPSHOT"
 
@@ -35,6 +41,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.github.javafaker:javafaker:1.0.2") { exclude ("org.yaml") }
 
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
