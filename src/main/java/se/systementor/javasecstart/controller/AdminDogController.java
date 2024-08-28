@@ -67,9 +67,11 @@ public class AdminDogController {
 
 
     @PostMapping(path = "/admin/update")
-    public String updateDog() {
+    public String updateDog(@ModelAttribute("dog") Dog dog) {
         //update dog from editForm
         System.out.println("INSIDE UPDATE DOG");
+        dogService.saveDog(dog);
+
         return "redirect:/admin/dogs";
     }
 

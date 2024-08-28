@@ -44,4 +44,21 @@ public class DogService {
     public Dog getDog(int id){
         return dogRepository.findById(id).orElse(new Dog());
     }
+
+    public void saveDog(Dog updatedDog){
+
+        Optional<Dog> existingDogOpt = dogRepository.findById(updatedDog.getId());
+
+        if (existingDogOpt.isPresent()) {
+            Dog existingDog = existingDogOpt.get();
+
+            existingDog.setName(updatedDog.getName());
+            existingDog.setBreed(updatedDog.getBreed());
+            existingDog.setAge(updatedDog.getAge());
+            existingDog.setSize(updatedDog.getSize());
+            existingDog.setPrice(updatedDog.getPrice());
+
+            dogRepository.save(existingDog);
+        }
+    }
 }
