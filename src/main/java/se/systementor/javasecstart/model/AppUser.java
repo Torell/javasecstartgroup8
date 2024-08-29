@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import se.systementor.javasecstart.utils.RandomSelector;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -39,4 +41,11 @@ public class AppUser {
 
     private String profileImage = "/images/accounts/" + randomSelector.getRandomImage();
 
+    private boolean isAccountNonLocked;
+
+    private boolean enabled;
+
+    private int failedAttempt;
+
+    private LocalDateTime lockTime;
 }
