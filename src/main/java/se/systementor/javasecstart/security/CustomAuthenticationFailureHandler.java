@@ -16,7 +16,7 @@ import se.systementor.javasecstart.services.AppUserService;
 import java.io.IOException;
 
 @Component
-public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     @Autowired
     private AppUserService appUserService;
