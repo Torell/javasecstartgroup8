@@ -17,10 +17,14 @@
             <div class="security-container">
                 <form th:action="@{/login}" method="post">
                     <h2 class="text-center mb-4" th:text="${header}"></h2>
+<!--                    <div th:if="${param.error}" id="errorMessage" class="alert alert-danger">-->
+<!--                        <p th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></p>-->
+<!--&lt;!&ndash;                    <p th:if="${#strings.toString(param.error)} == 'invalidPassword'">Fel lösenord!</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p th:if="${#strings.toString(param.error)} == 'usernameNotFound'">Användaren finns inte!</p>&ndash;&gt;-->
+<!--                    </div>-->
+
                     <div th:if="${param.error}" id="errorMessage" class="alert alert-danger">
-                        <p>[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
-<!--                    <p th:if="${#strings.toString(param.error)} == 'invalidPassword'">Fel lösenord!</p>-->
-<!--                    <p th:if="${#strings.toString(param.error)} == 'usernameNotFound'">Användaren finns inte!</p>-->
+                        <p th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></p>
                     </div>
 
 

@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import se.systementor.javasecstart.model.AppUser;
-import se.systementor.javasecstart.model.AppUserRepository;
 import se.systementor.javasecstart.services.AppUserService;
 
 import java.io.IOException;
@@ -27,28 +25,32 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws ServletException, IOException {
-            String username = request.getParameter("username");
-            AppUser appUser = appUserService.findUserByUsername(username);
+        String username = request.getParameter("username");
 
-            if (appUser != null) {
-                if (appUser.isEnabled() && appUser.isAccountNonLocked()) {
-                    if (appUser.getFailedAttempt() < MAX_FAILED_ATTEMPTS - 1) {
-                        appUserService.increaseFailedAttempts(appUser);
-                    } else {
-                        appUserService.lockAppUser(appUser);
-                        exception = new LockedException(
-                                """
+        if (!appUserService.existsByUsername(username)) {
+            exception = new BadCredentialsException("Detta konto finns inte");
+            super.setDefaultFailureUrl("/login?error");
+            super.onAuthenticationFailure(request, response, exception);
+            return;
+        }
+
+        AppUser appUser = appUserService.findUserByUsername(username);
+
+        if (appUser.isEnabled() && appUser.isAccountNonLocked()) {
+            if (appUser.getFailedAttempt() <= MAX_FAILED_ATTEMPTS) {
+                appUserService.increaseFailedAttempts(appUser);
+            } else {
+                appUserService.lockAppUser(appUser);
+                exception = new LockedException(
+                        """
                                 Ditt konto är låst på grund av flera misslyckade försök.
                                 Kontakta kundtjänst.""");
-                    }
-                } else if (!appUser.isAccountNonLocked()) {
-                    if (appUserService.unlockWhenTimeExpired(appUser)) {
-                        exception = new LockedException("Ditt konto har blivit upplåst.");
-                    }
-                }
-            } else {
-                exception = new UsernameNotFoundException("Detta konto finns inte.");
             }
+        } else if (!appUser.isAccountNonLocked()) {
+            if (appUserService.unlockWhenTimeExpired(appUser)) {
+                exception = new LockedException("Ditt konto har blivit upplåst.");
+            }
+        }
 
         super.setDefaultFailureUrl("/login?error");
         super.onAuthenticationFailure(request, response, exception);

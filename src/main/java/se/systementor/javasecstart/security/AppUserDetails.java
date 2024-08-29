@@ -5,6 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import se.systementor.javasecstart.model.AppUser;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -14,10 +15,6 @@ public class AppUserDetails implements UserDetails {
 
     public AppUserDetails(AppUser user) {
         this.user = user;
-    }
-
-    public String getProfileImage() {
-        return user.getProfileImage();
     }
 
     @Override
@@ -56,6 +53,18 @@ public class AppUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.isEnabled();
+    }
+
+    public String getProfileImage() {
+        return user.getProfileImage();
+    }
+
+    public int getFailedAttempt() {
+        return user.getFailedAttempt();
+    }
+
+    public LocalDateTime getLockTime() {
+        return user.getLockTime();
     }
 
 }

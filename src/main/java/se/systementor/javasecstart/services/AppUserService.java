@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.systementor.javasecstart.model.AppUser;
 import se.systementor.javasecstart.model.AppUserRepository;
 
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class AppUserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppUserService.class);
@@ -21,18 +24,18 @@ public class AppUserService {
     @Autowired
     private AppUserRepository appUserRepository;
 
-//    public boolean existsByUsername(String username) {
-//        return appUserRepository.existsByUsername(username);
-//    }
+    public boolean existsByUsername(String username) {
+        return appUserRepository.existsByUsername(username);
+    }
 
     public AppUser findUserById(UUID id) {
         return appUserRepository.findById(id)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new UsernameNotFoundException("Konto med id '%s' finns inte.".formatted(id)));
     }
 
     public AppUser findUserByUsername(String username) {
         return appUserRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username));
+                .orElseThrow(() -> new UsernameNotFoundException("Konto med användarnamn '%s' finns inte.".formatted(username)));
     }
 
     public boolean addUser(AppUser user) {
@@ -43,6 +46,8 @@ public class AppUserService {
                 })
                 .orElseGet(() -> {
                     user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+                    user.setAccountNonLocked(true);
+                    user.setEnabled(true);
                     appUserRepository.save(user);
                     LOGGER.info("User '{}' was added.", user.getUsername());
                     return true;
