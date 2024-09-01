@@ -5,6 +5,13 @@ plugins {
     id("org.owasp.dependencycheck") version "10.0.3"                    // OWASP Dependency check
 }
 
+dependencyCheck {
+//    nvdApiKey.set("KEY")
+//    failBuildOnCVSS =
+
+}
+
+
 dependencyManagement {
     imports {
         mavenBom("org.springframework.boot:spring-boot-dependencies:3.3.2")
