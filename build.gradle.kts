@@ -2,15 +2,12 @@ plugins {
     java
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
-    id("org.owasp.dependencycheck") version "10.0.3"                    // OWASP Dependency check
+    id("org.owasp.dependencycheck") version "10.0.3"
 }
 
-dependencyCheck {
-//    nvdApiKey.set("KEY")
-//    failBuildOnCVSS =
-
-}
-
+//dependencyCheck {
+//    nvd.apiKey=System.getenv("NVD_API_KEY")
+//}
 
 dependencyManagement {
     imports {
