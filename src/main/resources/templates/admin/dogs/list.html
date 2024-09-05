@@ -88,7 +88,7 @@
             <td th:text="${dog.size}"></td>
             <td th:text="${dog.price}"></td>
             <td>
-                <a class="listbutton">Edit</a>
+                <a class="listbutton" th:href="@{/admin/dogs/edit/{id}(id=${dog.id})}">Edit</a>
             </td>
         </tr>
         </tbody>

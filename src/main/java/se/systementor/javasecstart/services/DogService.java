@@ -8,6 +8,7 @@ import se.systementor.javasecstart.model.Dog;
 import se.systementor.javasecstart.model.DogRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DogService {
@@ -38,5 +39,26 @@ public class DogService {
         }
 
         return Integer.parseInt(builder.toString());
+    }
+
+    public Dog getDog(int id){
+        return dogRepository.findById(id).orElse(new Dog());
+    }
+
+    public void saveDog(Dog updatedDog){
+
+        Optional<Dog> existingDogOpt = dogRepository.findById(updatedDog.getId());
+
+        if (existingDogOpt.isPresent()) {
+            Dog existingDog = existingDogOpt.get();
+
+            existingDog.setName(updatedDog.getName());
+            existingDog.setBreed(updatedDog.getBreed());
+            existingDog.setAge(updatedDog.getAge());
+            existingDog.setSize(updatedDog.getSize());
+            existingDog.setPrice(updatedDog.getPrice());
+
+            dogRepository.save(existingDog);
+        }
     }
 }
