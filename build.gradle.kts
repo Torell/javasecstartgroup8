@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencyCheck {
-//    nvd.apiKey=System.getenv("NVD_API_KEY")
+    nvd.apiKey=System.getenv("NVD_API_KEY")
 
 //    hintsFile = file("src/main/resources/config/dependency-check/hints.xml").absolutePath
 //    suppressionFile = file("src/main/resources/config/dependency-check/suppressions.xml").absolutePath
