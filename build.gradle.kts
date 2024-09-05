@@ -2,6 +2,14 @@ plugins {
     java
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
+    id("org.owasp.dependencycheck") version "10.0.3"
+}
+
+dependencyCheck {
+    nvd.apiKey=System.getenv("NVD_API_KEY")
+
+//    hintsFile = file("src/main/resources/config/dependency-check/hints.xml").absolutePath
+//    suppressionFile = file("src/main/resources/config/dependency-check/suppressions.xml").absolutePath
 }
 
 dependencyManagement {
@@ -30,11 +38,10 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
     implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")

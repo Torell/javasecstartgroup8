@@ -22,6 +22,9 @@ public class WebSecurityConfig {
     @Autowired
     private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     @Bean
     public UserDetailsService userDetailsService() {
         return new AppUserDetailService();
@@ -51,7 +54,8 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/login/success", true)
+//                        .defaultSuccessUrl("/login/success", true)
+                        .successHandler(customAuthenticationSuccessHandler)
                         .failureHandler(customAuthenticationFailureHandler)
                         .permitAll())
                 .logout(logout -> {
