@@ -1057,7 +1057,6 @@ textarea,select,input[type=text],input[type=date],input[type=number]{
     flex-wrap: wrap;
 }
 
-
 .animal-img {
     width: 150px;
     height: 150px;
@@ -1065,4 +1064,32 @@ textarea,select,input[type=text],input[type=date],input[type=number]{
     box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
     margin-bottom: 10px;
     object-fit: cover;
+}
+
+.alert-message{
+    position: fixed;
+    top: -100px;
+    right: 35px;
+    background-color: rgb(9, 72, 179);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 1;
+}
+
+.alert-message p {
+    font-family: 'Nunito Sans', 'Karla', sans-serif;
+    text-align: center;
+    color: white;
+}
+
+.alert-message.show {
+    top: 30px;
+    opacity: 1;
+}
+
+.alert-message:hover {
+    opacity: 0.75;
 }

@@ -1,5 +1,6 @@
-$(document).ready(function(){
-    $('.sub-btn').click(function(){
+$(document).ready(function () {
+    $('.sub-btn').click(function () {
         $(this).next('.submenu').slideToggle(500);
     })
 })
+

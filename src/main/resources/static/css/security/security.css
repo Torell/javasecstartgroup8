@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(9, 72, 179);
+    font-family: 'Nunito Sans', 'Karla', sans-serif;
+}
+
+.security-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#errorMessage > p {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
